@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	engine := crawlers.Register("z-0062", "", "https://www.dubaiweek.ae/")
+	engine := crawlers.Register("z-0062", "DUBAI", "https://www.dubaiweek.ae/")
 
 	engine.SetStartingURLs([]string{"https://www.dubaiweek.ae/top-news/"})
 
