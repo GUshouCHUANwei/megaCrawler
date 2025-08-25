@@ -1,4 +1,4 @@
-package dev
+package production
 
 import (
 	"megaCrawler/crawlers"
@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	engine := crawlers.Register("GQT0053", "University of the East Manila Campus", "www.ue.edu.ph")
+	engine := crawlers.Register("GQT0054", "University of the East Manila Campus", "www.ue.edu.ph")
 
 	engine.SetStartingURLs([]string{
 		"https://www.ue.edu.ph/mla/?s=a"})

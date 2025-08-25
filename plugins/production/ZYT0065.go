@@ -1,16 +1,19 @@
-package dev
+package production
 
 import (
 	"megaCrawler/crawlers"
 	"megaCrawler/extractors"
+
+	"time"
+
 	"github.com/gocolly/colly/v2"
 )
 
 func init() {
-	engine := crawlers.Register("012", " ", "https://www.pbsp.org.ph/")
-	
-	engine.SetStartingURLs([]string{"https://www.pbsp.org.ph/news"})
-	
+	engine := crawlers.Register("ZYT0065", "Para", "https://www.para.org.ph")
+
+	engine.SetStartingURLs([]string{"https://www.para.org.ph/index.html"})
+
 	extractorConfig := extractors.Config{
 		Author:       true,
 		Image:        false,
@@ -21,14 +24,16 @@ func init() {
 		Title:        true,
 		TextLanguage: "",
 	}
-	
+
 	extractorConfig.Apply(engine)
 
-	engine.OnHTML(".div-block-3 > a", func(element *colly.HTMLElement, ctx *crawlers.Context) {
+	engine.SetTimeout(60 * time.Second)
+
+	engine.OnHTML(".large-7>ul>li>a", func(element *colly.HTMLElement, ctx *crawlers.Context) {
 		engine.Visit(element.Attr("href"), crawlers.News)
 	})
 
-	engine.OnHTML(".standard-rich-text.w-richtext > p", func(element *colly.HTMLElement, ctx *crawlers.Context) {
+	engine.OnHTML(".row>p", func(element *colly.HTMLElement, ctx *crawlers.Context) {
 		ctx.Content += element.Text
 	})
 
